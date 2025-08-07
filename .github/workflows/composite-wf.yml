@@ -1,0 +1,29 @@
+
+name: composite
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+  workflow_dispatch:
+
+jobs:
+  composite-action:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        
+      # Runs a single command using the runners shell
+      - name: test composite action
+        uses: ./
+        id: composite-sum-action
+        with:
+          number1: 10
+          number2: 2
+
+      # Runs a set of commands using the runners shell
+      - name: composite sum action result
+        run: echo result is ${{ steps.composite-sum-action.outputs.result }}
